@@ -69,7 +69,7 @@ if ($current_page == 'dashboard' || $_SERVER['REQUEST_URI'] == '/') {
 <!-- SUBJECTS -->
 <!-- ADD -->
 <form action="ACTIONS/add_query.php" method="POST">
-    <div style="width:300px; margin-left:500px" class="modal fade" id="exampleModal" tabindex="-1"
+    <div style="width:300px; margin-left:500px" class="modal fade" id="addSubject" tabindex="-1"
         aria-labelledby="addModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -95,7 +95,7 @@ if ($current_page == 'dashboard' || $_SERVER['REQUEST_URI'] == '/') {
 
 <!-- UPDATE -->
 <form action="ACTIONS/update_query.php" method="POST">
-    <div style="width:300px; margin-left:500px" class="modal fade" id="openUpdateModal" tabindex="-1"
+    <div style="width:300px; margin-left:500px" class="modal fade" id="editSubject" tabindex="-1"
         aria-labelledby="updateModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -591,29 +591,7 @@ if ($current_page == 'dashboard' || $_SERVER['REQUEST_URI'] == '/') {
 
 <!-- CRITERIA-->
 <!-- UPDATE -->
-<form action="ACTIONS/update_query.php" method="POST">
-    <div class="modal fade" id="criteriaUpdate" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="updateModalLabel"><b>Update Criteria</b></h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <input type="hidden" name="no" id="updateNo">
-                    <div class="mb-3">
-                        <label for="updateInputCriteria" class="form-label">Criteria</label>
-                        <input type="text" class="form-control" name="criteria" id="updateCriteria" required>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" name="update_criteria" class="btn btn-primary">Submit</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</form>
+
 
 <!--====================================================================================================->
  faculty_class-->

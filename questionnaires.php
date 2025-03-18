@@ -192,7 +192,8 @@
                                 <td><?php echo $row['question'] ?></td>
                                 <td>
                                     <button class="btn_edit" type="button"
-                                        onClick="openUpdateModal1('<?php echo $row['no']; ?>', '<?php echo $row['question']; ?>', 'Ques1')">
+                                        onClick="openUpdateModal1('<?php echo $row['no']; ?>', 
+                                        '<?php echo $row['question']; ?>', 'Ques1')">
                                         <i class="i_edit fa-solid fa-pen-to-square"></i>
                                     </button>
 

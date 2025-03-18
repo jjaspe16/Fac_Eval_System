@@ -133,7 +133,7 @@
             <h2>Faculty Evaluation System</h2>
             <div class="box2">
 
-               <form action="add_query.php" method="POST">
+               <form action="ACTIONS/add_query.php" method="POST">
                
                <?php 
                // echo '<script>alert("ID or Password is incorrect!") </script>'; ?>

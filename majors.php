@@ -183,7 +183,7 @@
 </style>
 
 <body>
-  
+<?php include 'ACTIONS/modals.php'; ?>
     <?php include 'sideNavBar.php'; ?>
     <div class="nav_box">
 

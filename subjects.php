@@ -4,9 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="assets/bootstrap-icons.css" >
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="assets/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/bootstrap-icons.css">
     <script src="assets/sweetalert2@11"></script>
 
     <title>Subjects</title>
@@ -37,7 +36,7 @@
 
         /* table styles */
         table {
-            background:linear-gradient( #F6F1F4, white);
+            background: linear-gradient(#F6F1F4, white);
             margin: 5px auto;
             max-height: 420px;
             overflow: auto;
@@ -56,7 +55,7 @@
         th {
             position: sticky;
             top: 0;
-            background:linear-gradient( #F6F1F4, white);
+            background: linear-gradient(#F6F1F4, white);
             font-weight: bold;
         }
 
@@ -77,9 +76,11 @@
             font-weight: bold;
             box-shadow: 0 0px 5px black;
         }
-        .btn_add:hover{
+
+        .btn_add:hover {
             background-color: #FFBF78;
-    }
+        }
+
         .btn_search {
             margin-top: 20px;
             height: 5vh;
@@ -220,7 +221,7 @@
         <hr>
         <div class="add-search">
             <button type="button" name="added" class="btn_add btn btn-primary" data-bs-toggle="modal"
-                data-bs-target="#exampleModal">
+                data-bs-target="#addSubject">
                 Add
             </button>
 
@@ -270,7 +271,8 @@
                                 <td><?php echo htmlspecialchars($row['code']); ?></td>
                                 <td><?php echo htmlspecialchars($row['subject'], ENT_QUOTES, 'UTF-8'); ?></td>
                                 <td>
-                                    <button class="btn_edit" type="button" onclick="openUpdateModal(<?php echo $row['no']; ?>,
+                                    <button class="btn_edit" type="button" onclick="editSubjectmodal(
+                                                  <?php echo $row['no']; ?>,
                                                  '<?php echo addslashes($row['code']); ?>',
                                                  '<?php echo addslashes($row['subject']); ?>')">
                                         <i class="i_edit fa-solid fa-pen-to-square"></i>
@@ -313,13 +315,16 @@
             })
         }
 
-        function openUpdateModal(no, code, subject) {
+        function editSubjectmodal(no, code, subject) {
             $('#updateNo').val(no);
             $('#updateCode').val(code);
             $('#updateSubject').val(subject);
-            $('#openUpdateModal').modal('show');
+            $('#editSubject').modal('show');
         }
     </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 
 </html>

@@ -291,7 +291,7 @@
 
         <!-- Modal to Add Data -->
         <form action="ACTIONS/add_query.php" method="POST">
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+            <div class="modal fade" id="addSubject" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header" style="background: linear-gradient(#FFBF78, white)">

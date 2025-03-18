@@ -47,11 +47,11 @@ if (isset($_POST['login'])) {
                 $_SESSION['faculty_id'] = $row['faculty_id'];
 
                 if ($txtusertype == 'Faculty') {
-                    
-                   // header('location:fac_navigation.php');
-                   header('location:../faculty_page.php');
-                   
-                    
+
+                    // header('location:fac_navigation.php');
+                    header('location:../faculty_page.php');
+
+
                     exit();
                 }
 
@@ -84,203 +84,208 @@ if (isset($_POST['login'])) {
     }
 }
 
-// ADD faculty
+// ADD faculty securely
 if (isset($_POST['add_faculty'])) {
 
-    $txtid = $_POST['faculty_id'];
-    $txtfirstname = $_POST['firstname'];
-    $txtlastname = $_POST['lastname'];
-    $txtsubject = $_POST['subject'];
-    $txtemail = $_POST['email'];
-    $txtfpassword = hash(algo: "md5", data: $_POST['f_password'], binary: false);
+    $txtid = trim($_POST['faculty_id']);
+    $txtfirstname = trim($_POST['firstname']);
+    $txtlastname = trim($_POST['lastname']);
+    $txtsubject = trim($_POST['subject']);
+    $txtemail = trim($_POST['email']);
+    $txtfpassword = $_POST['f_password'];
 
-
-
-    $qry = "INSERT INTO `faculties`(`faculty_id`, `firstname`, `lastname`,`subject`, `email`, `f_password`) 
-            VALUES ('$txtid','$txtfirstname','$txtlastname', '$txtsubject','$txtemail','$txtfpassword')";
-    $connects = $conn->query($qry);
-
-    if ($connects) {
-        header('location:../faculty.php?success=1');
+    // Validate email format
+    if (!filter_var($txtemail, FILTER_VALIDATE_EMAIL)) {
+        die("Invalid email format!");
     }
+
+    // Hash password securely
+    $hashed_password = password_hash($txtfpassword, PASSWORD_DEFAULT);
+
+    // Use prepared statement to prevent SQL Injection
+    $qry = "INSERT INTO faculties (faculty_id, firstname, lastname, subject, email, f_password) 
+            VALUES (?, ?, ?, ?, ?, ?)";
+
+    $stmt = $conn->prepare($qry);
+    $stmt->bind_param("ssssss", $txtid, $txtfirstname, $txtlastname, $txtsubject, $txtemail, $hashed_password);
+
+    if ($stmt->execute()) {
+        header('location:../faculty.php?success=1');
+    } else {
+        echo "Error: " . $stmt->error;
+    }
+
+    $stmt->close();
+    $conn->close();
 }
+
 
 //student
 if (isset($_POST['add_student'])) {
-    $txtno = $_POST['no'];
-    $txtStud_id = $_POST['stud_id'];
-    $txtfname = $_POST['firstname'];
-    $txtlname = $_POST['lastname'];
-    $txtsubject = $_POST['subject'];
-    $txtclass = $_POST['class'];
-    $txtpassword = hash(algo: "md5", data: $_POST['password'], binary: false);
+    // $txtno =trim($_POST['no']);
+    $txtStud_id = trim($_POST['stud_id']);
+    $txtfname = trim($_POST['firstname']);
+    $txtlname = trim($_POST['lastname']);
+    $txtsubject = trim($_POST['subject']);
+    $txtclass = trim($_POST['class']);
+    $txtpassword = $_POST['password'];
 
-    $qry = "INSERT INTO `fac_students`(`no`, `stud_id`, `firstname`, `lastname`, `subject`, `class`,`password`) 
-            VALUES ('$txtno','$txtStud_id',' $txtfname',' $txtlname','$txtsubject',' $txtclass','$txtpassword')";
-    $connect = $conn->query($qry);
+    $passHash = password_hash($txtpassword, PASSWORD_DEFAULT);
 
-    if ($connect) {
+    $qry = "INSERT INTO `fac_students`( `stud_id`, `firstname`, `lastname`, `subject`, `class`,`password`) 
+            VALUES (?,?,?,?,?,?)";
+    $connect = $conn->prepare($qry);
+    $connect->bind_param("ssssss", $txtStud_id, $txtfname, $txtlname, $txtsubject, $txtclass, $passHash);
+
+    if ($connect->execute()) {
         header('location:../faculty_page.php?success=1');
+    } else {
+        echo "Error: " . $connect->error;
     }
 }
 
 //class
 if (isset($_POST['add_class'])) {
-    $txtno = $_POST['no'];
-    $txtcourse = $_POST['course'];
-    $txtyearlevel = $_POST['year_level'];
-    $txtblock = $_POST['Set'];
+    // $txtno = trim($_POST['no']);
+    $txtcourse = trim($_POST['course']);
+    $txtyearlevel = trim($_POST['year_level']);
+    $txtblock = trim($_POST['Set']);
 
-    $qry = "INSERT INTO `class`(`no`, `course`, `year_level`, `Set`) 
-        VALUES ('$txtno','$txtcourse','$txtyearlevel','$txtblock')";
-    $connect = $conn->query($qry);
+    $qry = "INSERT INTO `class`(`course`, `year_level`, `Set`) 
+        VALUES (?,?,?)";
+    $connect = $conn->prepare($qry);
+    $connect->bind_param("sss", $txtcourse, $txtyearlevel, $txtblock);
 
-    if ($connect) {
+    if ($connect->execute()) {
         header('location:../class.php?success=1');
-    }
-}
-
-// fac_class
-if (isset($_POST['add_fac_class'])) {
-    $txtno = $_POST['no'];
-    $txtcourse = $_POST['course'];
-    $txtyearlevel = $_POST['year_level'];
-    $txtblock = $_POST['Set'];
-
-    $qry = "INSERT INTO `class`(`no`, `course`, `year_level`, `Set`) 
-        VALUES ('$txtno','$txtcourse','$txtyearlevel','$txtblock')";
-    $connect = $conn->query($qry);
-
-    if ($connect) {
-        header('location:../fac_class.php?success=1');
+    } else {
+        echo "Error: " . $connect->error;
     }
 }
 
 // ADD SUBJECT
 if (isset($_POST['add_subject'])) {
-    $txtno = $_POST['no'];
-    $txtcode = $_POST['code'];
-    $txtsubject = $_POST['subject'];
+    $txtno = trim($_POST['no']);
+    $txtcode = trim($_POST['code']);
+    $txtsubject = trim($_POST['subject']);
 
-    $qry = "INSERT INTO `subjects`(`no`, `code`, `subject`) VALUES ('$txtno','$txtcode','$txtsubject')";
-    $connect = $conn->query($qry);
+    $qry = "INSERT INTO `subjects`(`no`, `code`, `subject`) VALUES (?,?,?)";
+    $connect = $conn->prepare($qry);
+    $connect->bind_param("sss", $txtno, $txtcode, $txtsubject);
+    if ($connect->execute()) {
 
-    if ($connect) {
-        // Redirect back to the form page with a success flag
         header('location:../subjects.php?success=1');
-        exit;
-    }
-}
-// FACULTY ADD SUBJECT
-if (isset($_POST['add_fac_subject'])) {
-    $txtno = $_POST['no'];
-    $txtcode = $_POST['code'];
-    $txtsubject = $_POST['subject'];
-
-    $qry = "INSERT INTO `subjects`(`no`, `code`, `subject`) VALUES ('$txtno','$txtcode','$txtsubject')";
-    $connect = $conn->query($qry);
-
-    if ($connect) {
-        header('location:../fac_subject.php?success=1');
+    } else {
+        echo "Error:" . $connect->error;
     }
 }
 
 // academic year
 if (isset($_POST['add_acadyear'])) {
 
-    $txtno = $_POST['no'];
-    $txtyear = $_POST['year'];
-    $txtsemester = $_POST['semester'];
-    $txtsys_default = $_POST['sys_default'];
-    $txteval_status = $_POST['eval_status'];
+    $txtno = trim($_POST['no']);
+    $txtyear = trim($_POST['year']);
+    $txtsemester = trim($_POST['semester']);
+    $txtsys_default = trim($_POST['sys_default']);
+    $txteval_status = trim($_POST['eval_status']);
 
 
     $sql = "INSERT INTO `academic_year`(`no`, `year`, `semester`, `sys_default`, `eval_status`) 
-            VALUES ('$txtno','$txtyear','$txtsemester',' $txtsys_default','$txteval_status') ";
-    $connect = $conn->query($sql);
+            VALUES (?,?,?,?,?) ";
+    $connect = $conn->prepare($sql);
+    $connect->bind_param("sssss", $txtno, $txtyear, $txtsemester, $txtsys_default, $txteval_status);
 
-    if ($connect) {
+    if ($connect->execute()) {
         header('location:../academic_year.php?success=1');
-    }
+    } else
+        echo "Error: " . $connect->error;
 }
 
 //major
 if (isset($_POST['add_depart'])) {
-    $txtno = $_POST['no'];
-    $txtdepart = $_POST['department'];
+    $txtno = trim($_POST['no']);
+    $txtdepart = trim($_POST['department']);
 
-    $sql = "INSERT INTO `department`(`no`, `department`) VALUES ('$txtno','$txtdepart')";
-    $connect = $conn->query($sql);
+    $sql = "INSERT INTO `department`(`no`, `department`) VALUES (?,?)";
+    $connect = $conn->prepare($sql);
+    $connect->bind_param("ss", $txtno, $txtdepart);
 
-    if ($connect) {
+    if ($connect->execute()) {
         header('location:../majors.php?success=1');
-    }
+    } else
+        echo "Error: " . $connect->error;
 }
 
 //criteria
 if (isset($_POST['add_criteria'])) {
-    $txtno = $_POST['no'];
-    $txtcriteria = $_POST['criteria'];
+    $txtno = trim($_POST['no']);
+    $txtcriteria = trim($_POST['criteria']);
 
-    $sql = "INSERT INTO `criterias`(`no`, `criteria`) VALUES ('$txtno',' $txtcriteria')";
-    $connect = $conn->query($sql);
+    $sql = "INSERT INTO `criterias`(`no`, `criteria`) VALUES (?,?)";
+    $connect = $conn->prepare($sql);
+    $connect->bind_param("ss", $txtno, $txtcriteria);
 
-
-    if ($connect) {
+    if ($connect->execute()) {
         header('location:../criteria.php?success=1');
-    }
+    } else
+        echo "Error: " . $connect->error;
 }
 
 //criteria 1
 if (isset($_POST['ques1'])) {
-    $txtno = $_POST['no'];
-    $txtquestion = $_POST['question'];
+    // $txtno =trim($_POST['no']);
+    $txtquestion = trim($_POST['question']);
 
-    $sql = "INSERT INTO `planning_and_lesson_implementation`(`question`) VALUES ('$txtquestion')";
-    $connect = $conn->query($sql);
-
-    if ($connect) {
+    $sql = "INSERT INTO `planning_and_lesson_implementation`(`question`) VALUES (?)";
+    $connect = $conn->prepare($sql);
+    $connect->bind_param("s", $txtquestion);
+    if ($connect->execute()) {
         header('location:../questionnaires.php?success=1');
-    }
+    } else
+        echo "Error: " . $connect->error;
 }
 
 //criteria 2
 if (isset($_POST['ques2'])) {
-    $txtno = $_POST['no'];
-    $txtquestion = $_POST['question'];
+    // $txtno =trim($_POST['no']);
+    $txtquestion = trim($_POST['question']);
 
-    $sql = "INSERT INTO `classroom_management`(`question`) VALUES ('$txtquestion')";
-    $connect = $conn->query($sql);
-
-    if ($connect) {
+    $sql = "INSERT INTO `classroom_management`(`question`) VALUES (?)";
+    $connect = $conn->prepare(query: $sql);
+    $connect->bind_param("s", $txtquestion);
+    if ($connect->execute()) {
         header('location:../questionnaires.php?success=1');
-    }
+    } else
+        echo "Error: " . $connect->error;
 }
 
 //criteria 3
 if (isset($_POST['ques3'])) {
-    $txtno = $_POST['no'];
-    $txtquestion = $_POST['question'];
+    //$txtno = trim($_POST['no']);
+    $txtquestion = trim($_POST['question']);
 
-    $sql = "INSERT INTO `interpersonal_skills`(`question`) VALUES ('$txtquestion')";
-    $connect = $conn->query($sql);
+    $sql = "INSERT INTO `interpersonal_skills`(`question`) VALUES (?)";
+    $connect = $conn->prepare($sql);
+    $connect->bind_param("s", $txtquestion);
 
-    if ($connect) {
+
+    if ($connect->execute()) {
         header('location:../questionnaires.php?success=1');
-    }
+    } else
+        echo "Error: " . $connect->error;
 }
-
 //question ?
 if (isset($_POST['question'])) {
-    $txtno = $_POST['no'];
-    $txtquestion = $_POST['question'];
+    // $txtno = trim($_POST['no']);
+    $txtquestion = trim($_POST['question']);
 
-    $sql = "INSERT INTO `others`(`question`) VALUES ('$txtquestion')";
-    $connect = $conn->query($sql);
-
-    if ($connect) {
+    $sql = "INSERT INTO `others`(`question`) VALUES (?)";
+    $connect = $conn->prepare($sql);
+    $connect->bind_param("s", $txtquestion);
+    if ($connect->execute()) {
         header('location:../questionnaires.php?success=1');
-    }
+    } else
+        echo "Error: " . $connect->error;
 }
 
 ?>

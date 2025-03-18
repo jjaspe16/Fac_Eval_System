@@ -177,6 +177,7 @@
 </style>
 
 <body>
+
     <?php
     include 'sideNavBar.php';
     ?>
@@ -224,6 +225,7 @@
 
                         <?php
                         include 'DATABASE/db.php';
+                        include 'ACTIONS/modals.php';
 
                         $sql = " SELECT `no`, `criteria` FROM `criterias`";
                         $result = $conn->query($sql);
@@ -235,7 +237,7 @@
                                 <td><?php echo $row['no'] ?></td>
                                 <td><?php echo $row['criteria'] ?></td>
                                 <td>
-                                    <button class="btn_edit" type="button" onclick="openUpdateModal(<?php echo $row['no']; ?>,
+                                    <button class="btn_edit" type="button" onclick="editCriteriamodal(<?php echo $row['no']; ?>,
                                              '<?php echo $row['criteria']; ?>')"><i
                                             class="i_edit fa-solid fa-pen-to-square"></i>
                                     </button>
@@ -255,7 +257,7 @@
 
                 <!-- Modal for Updating a Criteria -->
                 <form action="ACTIONS/update_query.php" method="POST">
-                    <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel"
+                    <div class="modal fade" id="updateCriteriamodal" tabindex="-1" aria-labelledby="updateModalLabel"
                         aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -289,10 +291,10 @@
        
                 
         <script>
-            function openUpdateModal(no, criteria) {
+            function editCriteriamodal(no, criteria) {
                 $('#updateNo').val(no);
                 $('#updateCriteria').val(criteria);
-                $('#updateModal').modal('show');
+                $('#updateCriteriamodal').modal('show');
             }
             function confirmDelete(no) {
                 Swal.fire({
