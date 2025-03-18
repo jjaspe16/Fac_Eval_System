@@ -1,0 +1,45 @@
+.div_nav {
+    width: 85%;
+    height: 6vh;
+    background:#FEFFD2;
+
+}
+.side_con {
+    width: 15%;
+    height: 100vh;
+    background: linear-gradient(rgb(238, 195, 116), white, rgb(238, 195, 116));
+}
+
+.img_box {
+    width: 65%;
+    height: 20vh;
+    margin-top: 10px;
+    background-image: url("IMAGES/seeait_logo-removebg-preview.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-left: 40px;
+}
+
+ul {
+    margin-top: 20px;
+}
+
+li {
+    list-style: none;
+    height: 6vh;
+    font-weight: bold;
+    padding-top: 8px;
+    border-radius: 5px;
+}
+
+li:hover {
+    background-color: rgb(141, 141, 235)
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+i {
+    color: black;
+}
