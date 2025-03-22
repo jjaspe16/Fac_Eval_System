@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="assets/bootstrap-icons.css" >
+    <link rel="stylesheet" href="assets/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="assets/bootstrap.min.css">
     <script src="assets/sweetalert2@11"></script>
@@ -33,7 +33,7 @@
     }
 
     table {
-        background:linear-gradient( #F6F1F4, white);
+        background: linear-gradient(#F6F1F4, white);
         margin: 10px auto;
         /* Center the table with automatic margins */
         max-height: 390px;
@@ -51,13 +51,14 @@
         border-collapse: collapse;
         text-align: center;
         border: 1px solid #ddd;
+        font-family: Georgia, 'Times New Roman', Times, serif;
     }
 
     th {
 
         position: sticky;
         top: 0;
-        background:linear-gradient( #F6F1F4, white);
+        background: linear-gradient(#F6F1F4, white);
         font-weight: bold;
     }
 
@@ -69,6 +70,7 @@
         padding: 5px;
         /* Added padding for better readability */
     }
+
     .btn_add {
         margin-left: 110px;
         height: 5vh;
@@ -82,7 +84,8 @@
         cursor: pointer;
         /* Pointer cursor on hover */
     }
-    .btn_add:hover{
+
+    .btn_add:hover {
         background-color: #FFBF78;
     }
 
@@ -183,7 +186,7 @@
 </style>
 
 <body>
-<?php include 'ACTIONS/modals.php'; ?>
+    <?php include 'ACTIONS/modals.php'; ?>
     <?php include 'sideNavBar.php'; ?>
     <div class="nav_box">
 
@@ -206,33 +209,32 @@
                     <th style="width:570px">Majors</th>
                     <th style="width:10px" colspan="2">Action</th>
                 </tr>
-                <?php 
-                include 'DATABASE/db.php';
-                include 'ACTIONS/modals.php'; 
-                $sql = "SELECT `no`, `department` FROM `department` ";
-                $result = $conn->query($sql);
+                <?php
+                include 'wp-includes/majors.php';
 
-                if ($result->num_rows > 0) {
-                    while ($row = $result->fetch_assoc()) {
-                        ?>
-                        <tr>
-                            <td><?php echo $row['no'] ?></td>
-                            <td><?php echo $row['department'] ?></td>
-                            <td>
-                                <button class="btn_edit" type="button" onclick="major_updateModal(<?php echo $row['no']; ?>, 
-                                        '<?php echo $row['department']; ?>')">
-                                    <i class="i_edit fa-solid fa-pen-to-square"></i>
-                                </button>
-                                <button type="button" class="btn_delete" onclick="confirmDelete(<?php echo $row['no']; ?>)">
-                                    <i class="i_delete fa-solid fa-trash"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        <?php
-                    }
-                }
-                ?>
+                $departments = getDepartments($conn);
+
+                foreach ($departments as $department) {
+                    ?>
+                    <tr>
+                        <td><?php echo $department['no']; ?></td>
+                        <td><?php echo $department['department']; ?></td>
+                        <td>
+                            <button class="btn_edit" type="button" onclick="major_updateModal(<?php echo $department['no']; ?>, 
+                        '<?php echo addslashes($department['department']); ?>')">
+                                <i class="i_edit fa-solid fa-pen-to-square"></i>
+                            </button>
+
+                            
+                            <button type="button" class="btn_delete"
+                                onclick="confirmDelete(<?php echo $department['no']; ?>)">
+                                <i class="i_delete fa-solid fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                <?php } ?>
             </table>
+
             <input type="hidden" name="major_delete" id="deleteInput">
         </form>
 

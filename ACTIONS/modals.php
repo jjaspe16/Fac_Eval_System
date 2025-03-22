@@ -27,7 +27,7 @@ if ($current_page == 'dashboard' || $_SERVER['REQUEST_URI'] == '/') {
                     <div class="modal-body">
                         <div class="mb-3">
                             <label for="exampleInputMajor" class="form-label">Major</label>
-                            <input style="width:100%; height:5vh" type="text" class="form-control" name="department"
+                            <input style="width:300px;height:6vh" type="text" class="form-control" name="department"
                                 required>
                         </div>
                         <div class="modal-footer">
@@ -53,7 +53,7 @@ if ($current_page == 'dashboard' || $_SERVER['REQUEST_URI'] == '/') {
                         <input type="hidden" name="no" id="updateNo">
                         <div class="mb-3">
                             <label for="updateInputMajor" class="form-label">Major</label>
-                            <input type="text" class="form-control" name="department" id="updateDepartment" required>
+                            <input type="text"style="width:300px;height:6vh"  class="form-control" name="department" id="updateDepartment" required>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -134,8 +134,9 @@ if ($current_page == 'dashboard' || $_SERVER['REQUEST_URI'] == '/') {
                 </div>
                 <div class="modal-body">
                     <div class="mb-3">
-                        <label for=""><b>Course:</b></label>
-                        <select name="course" id="" class="input_class form-control">
+                        <label for=""><b>Class:</b></label>
+                        <input type="text" name="course" id="" class="input_class form-control">
+                       <!-- <select name="course" id="" class="input_class form-control">
                             <option value=""></option>
                             <?php
                             include 'DATABASE/db.php';
@@ -147,35 +148,13 @@ if ($current_page == 'dashboard' || $_SERVER['REQUEST_URI'] == '/') {
                                 }
                             }
                             ?>
-                        </select><br>
+                        </select><br>-->
                         <label for=""><b>Year Level:</b></label>
-                        <select name="year_level" id="" class="input_class form-control">
-                            <option value=""></option>
-                            <?php
-                            include 'DATABASE/db.php';
-                            $query = "SELECT * FROM class";
-                            $result = mysqli_query($conn, $query);
-                            if ($result->num_rows > 0) {
-                                while ($row = $result->fetch_assoc()) {
-                                    echo "<option value='" . $row['year_level'] . "'>" . $row['year_level'] . "</option>";
-                                }
-                            }
-                            ?>
-                        </select><br>
+                        <input type="text" name="year_level" id="" class="input_class form-control">
+                       
                         <label for=""><b>Set:</b></label>
-                        <select name="Set" id="" class="input_class form-control">
-                            <option value=""></option>
-                            <?php
-                            include 'DATABASE/db.php';
-                            $query = "SELECT * FROM class";
-                            $result = mysqli_query($conn, $query);
-                            if ($result->num_rows > 0) {
-                                while ($row = $result->fetch_assoc()) {
-                                    echo "<option value='" . $row['Set'] . "'>" . $row['Set'] . "</option>";
-                                }
-                            }
-                            ?>
-                        </select><br>
+                        <input type="text" name="Set" id="" class="input_class form-control">
+                        
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -201,47 +180,14 @@ if ($current_page == 'dashboard' || $_SERVER['REQUEST_URI'] == '/') {
                 <input type="hidden" name="no" id="updateNo">
                     <div class="mb-3">
                         <label for=""><b>Course:</b></label>
-                        <select name="course" id="updateCourse" class="input_class form-control">
-                            <option value=""></option>
-                            <?php
-                            include 'DATABASE/db.php';
-                            $query = "SELECT * FROM class";
-                            $result = mysqli_query($conn, $query);
-                            if ($result->num_rows > 0) {
-                                while ($row = $result->fetch_assoc()) {
-                                    echo "<option value='" . $row['course'] . "'>" . $row['course'] . "</option>";
-                                }
-                            }
-                            ?>
-                        </select><br>
+                        <input type="text" name="course" id="updateCourse" class="input_class form-control">
+                        
                         <label for=""><b>Year Level:</b></label>
-                        <select name="year_level" id="updateYrLevel" class="input_class form-control">
-                            <option value=""></option>
-                            <?php
-                            include 'DATABASE/db.php';
-                            $query = "SELECT * FROM class";
-                            $result = mysqli_query($conn, $query);
-                            if ($result->num_rows > 0) {
-                                while ($row = $result->fetch_assoc()) {
-                                    echo "<option value='" . $row['year_level'] . "'>" . $row['year_level'] . "</option>";
-                                }
-                            }
-                            ?>
-                        </select><br>
+                        <input type="text" name="year_level" id="updateYrLevel" class="input_class form-control">
+                    
                         <label for=""><b>Set:</b></label>
-                        <select name="Set" id="updateSet" class="input_class form-control">
-                            <option value=""></option>
-                            <?php
-                            include 'DATABASE/db.php';
-                            $query = "SELECT * FROM class";
-                            $result = mysqli_query($conn, $query);
-                            if ($result->num_rows > 0) {
-                                while ($row = $result->fetch_assoc()) {
-                                    echo "<option value='" . $row['Set'] . "'>" . $row['Set'] . "</option>";
-                                }
-                            }
-                            ?>
-                        </select><br>
+                        <input type="text" name="Set" id="updateSet" class="input_class form-control">
+                    
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -259,7 +205,7 @@ if ($current_page == 'dashboard' || $_SERVER['REQUEST_URI'] == '/') {
 <!-- ACADEMIC YEAR -->
 <!-- ADD -->
 <form action="ACTIONS/add_query.php" method="POST">
-    <div class="modal fade" id="addAcad_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div style="width:400px; margin-left:500px"  class="modal fade"  id="addAcad_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -270,26 +216,26 @@ if ($current_page == 'dashboard' || $_SERVER['REQUEST_URI'] == '/') {
 
                     <div class="mb-3">
                         <label>Year : </label><br>
-                        <input type="text" name="year" placeholder="ex. 2023-2024" class="input_class form-control"
+                        <input style="height:5vh" type="text" name="year"  class="input_class form-control"
                             required>
 
                         <label> Semester : </label><br>
-                        <input class="inp_radio" type="radio" name="semester" value="1st"
+                        <input class="inp_radio" type="radio" name="semester"  style="margin-left:50px"  value="1st"
                             class="input_class form-control">1st </input>
-                        <input class="inp_radio" type="radio" name="semester" value="2nd"
+                        <input class="inp_radio" type="radio" name="semester"  style="margin-left:40px"  value="2nd"
                             class="input_class form-control">2nd </input> <br>
 
 
                         <label> System Default : </label><br>
-                        <input class="inp_radio" type="radio" name="sys_default" class="input_class form-control"
+                        <input class="inp_radio" type="radio" name="sys_default" style="margin-left:50px" class="input_class form-control"
                             value="Yes">Yes</input>
-                        <input class="inp_radio" type="radio" name="sys_default" class="input_class form-control"
+                        <input class="inp_radio" type="radio" name="sys_default"  style="margin-left:40px" style="margin-left:40px" class="input_class form-control"
                             value="No">No </input>
 
                         <br> <label> Evaluation Status : </label><br>
-                        <input class="inp_radio" type="radio" name="eval_status" class="input_class form-control"
+                        <input class="inp_radio" type="radio" name="eval_status" style="margin-left:50px" class="input_class form-control"
                             value="Starting">Starting </input>
-                        <input class="inp_radio" type="radio" name="eval_status" class="input_class form-control"
+                        <input class="inp_radio" type="radio" name="eval_status"  style="margin-left:10px" class="input_class form-control"
                             value="Not Yet Started">Not Yet Started </input>
                     </div>
                     <div class="modal-footer">
@@ -305,7 +251,7 @@ if ($current_page == 'dashboard' || $_SERVER['REQUEST_URI'] == '/') {
 
 <!-- UPDATE -->
 <form action="ACTIONS/update_query.php" method="POST">
-    <div style="width:390px; margin-left:500px" class="modal fade" id="acad_UpdateModal" tabindex="-1"
+    <div style="width:400px; margin-left:500px" class="modal fade" id="acad_UpdateModal" tabindex="-1"
         aria-labelledby="updateModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -314,31 +260,31 @@ if ($current_page == 'dashboard' || $_SERVER['REQUEST_URI'] == '/') {
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <input type="hidden" name="no" id="updateNo">
+                    <input type="hidden" name="no" id="updateNo">      
+                       
+                    <label>Year : </label><br>
+                        <input style="height:5vh" type="text" name="year"  id="update-Year"class="input_class form-control"
+                            required>
 
-                    <div class="mb-3">
-                        <label for="update-Year" class="form-label">Year:</label>
-                        <input type="text" class="input_class form-control" name="year" id="update-Year" required><br>
+                        <label> Semester : </label><br>
+                        <input class="inp_radio" type="radio" name="semester"  style="margin-left:50px"  id="update-semester1"
+                            class="input_class form-control">1st </input>
+                        <input class="inp_radio" type="radio" name="semester"  style="margin-left:40px"  id="update-semester2"
+                            class="input_class form-control">2nd </input> <br>
 
-                        <label for="update-semester" class="form-label">Semester:</label>
-                        <input class="inp_radio" type="radio" name="semester" value="1st" id="update-semester1"
-                            required> 1st
-                        <input class="inp_radio" type="radio" name="semester" value="2nd" id="update-semester2"
-                            required> 2nd <br>
 
-                        <label for="update-sysDefault" class="form-label">Sys Default:</label>
-                        <input class="inp_radio" type="radio" name="sys_default" value="Yes" id="update-sysDefaultYes"
-                            required> Yes
-                        <input class="inp_radio" type="radio" name="sys_default" value="No" id="update-sysDefaultNo"
-                            required> No <br>
+                        <label> System Default : </label><br>
+                        <input class="inp_radio" type="radio" name="sys_default" style="margin-left:50px" class="input_class form-control"
+                        id="update-sysDefaultYes" >Yes</input>
+                        <input class="inp_radio" type="radio" name="sys_default"  style="margin-left:40px" style="margin-left:40px" class="input_class form-control"
+                        id="update-sysDefaultNo"  >No </input>
 
-                        <label for="update-evalStatus" class="form-label">Eval. Status:</label>
-                        <input class="inp_radio" type="radio" name="eval_status" value="Starting"
-                            id="update-evalStatusStarting" required> Starting
-                        <input class="inp_radio" type="radio" name="eval_status" value="Not Yet Started"
-                            id="update-evalStatusNotYetStarted" required> Not Yet Started<br>
+                        <br> <label> Evaluation Status : </label><br>
+                        <input class="inp_radio" type="radio" name="eval_status" style="margin-left:50px" class="input_class form-control"
+                        id="update-evalStatusStarting" >Starting </input>
+                        <input class="inp_radio" type="radio" name="eval_status"  style="margin-left:10px" class="input_class form-control"
+                        id="update-evalStatusNotYetStarted" >Not Yet Started </input>
                     </div>
-
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="submit" name="update_acadyear" class="btn btn-primary">Submit</button>
@@ -366,11 +312,11 @@ if ($current_page == 'dashboard' || $_SERVER['REQUEST_URI'] == '/') {
                         <div class="div_form">
 
                             <input type="text" name="faculty_id" class="input_class form-control" placeholder="ID"
-                                required><br>
+                                required>
                             <input type="text" name="firstname" class="input_class form-control" placeholder="Firstname"
-                                required><br>
+                                required>
                             <input type="text" name="lastname" class="input_class form-control" placeholder="Lastname"
-                                required> <br>
+                                required> 
                             <select name="subject" id="" class="input_class form-control" required>
                                 <option value="">Subject</option>
                                 <?php
@@ -387,13 +333,13 @@ if ($current_page == 'dashboard' || $_SERVER['REQUEST_URI'] == '/') {
                                     }
                                 } ?>
 
-                            </select><br>
+                            </select>
                             <input type="email" name="email" class="input_class form-control" placeholder="Email"
                                 required>
-                            <br>
+                            
                             <input type="password" name="f_password" class="input_class form-control"
                                 placeholder="Password" required>
-                            <br>
+                            
 
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -475,13 +421,13 @@ if ($current_page == 'dashboard' || $_SERVER['REQUEST_URI'] == '/') {
                 </div>
                 <div class="modal-body">
                     <div class="mb-3">
-                        <input type="text" name="stud_id" class="input_class form-control" placeholder="ID"
+                        <input type="text" name="stud_id" style="height:5vh" class="input_class form-control" placeholder="ID"
                             required><br>
-                        <input type="text" name="firstname" class="input_class form-control" placeholder="Firstname"
+                        <input type="text" name="firstname" style="height:5vh"class="input_class form-control" placeholder="Firstname"
                             required><br>
-                        <input type="text" name="lastname" class="input_class form-control" placeholder="Lastname"
+                        <input type="text" name="lastname" style="height:5vh" class="input_class form-control" placeholder="Lastname"
                             required><br>
-                        <select name="subject" style="text-align:center" class="input_class form-control" required>
+                        <select name="subject"  style="height:5vh;text-align:center" class="input_class form-control" required>
                             <option value="" style="text-align:center">Subject</option>
                             <?php
                             include 'DATABASE/db.php';
@@ -494,7 +440,7 @@ if ($current_page == 'dashboard' || $_SERVER['REQUEST_URI'] == '/') {
                             }
                             ?>
                         </select><br>
-                        <select name="class" style="text-align:center" class="input_class-class form-control"
+                        <select name="className" style="height:5vh" class="input_class-class form-control"
                             placeholder="Class" required>
                             <option value="" style="text-align:center;text-transform:Sentence">Class</option>
                             <?php
@@ -512,7 +458,7 @@ if ($current_page == 'dashboard' || $_SERVER['REQUEST_URI'] == '/') {
                         </select> <br>
 
 
-                        <input type="password" name="password" class="input_class form-control" placeholder="Password"
+                        <input type="password" name="password" style="height:5vh" class="input_class form-control" placeholder="Password"
                             required><br>
                     </div>
                 </div>
@@ -532,20 +478,17 @@ if ($current_page == 'dashboard' || $_SERVER['REQUEST_URI'] == '/') {
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="UpdateModalLabel"><b>Update Student</b></h1>
+                    <h1 class="modal-title fs-5" id="stud_updateModalLabel"><b>Update Student</b></h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <input type="hidden" name="no" id="updateNo">
                     <div class="mb-3">
                         <div class="div_form">
-                            <input type="text" name="stud_id" class="input_class input_class form-control" id="updateID"
-                                required><br>
-                            <input type="text" name="firstname" class="input_class input_class form-control"
-                                id="updateFname" required><br>
-                            <input type="text" name="lastname" class="input_class form-control" id="updateLname"
-                                required><br>
-                            <select name="subject" id="updateSubject" class="input_class form-control" required>
+                            <input type="text" name="stud_id" id="update-studID" style="height:5vh" class="input_class input_class form-control"required><br>
+                            <input type="text" name="firstname"  id="update-studFname"  style="height:5vh" class="input_class input_class form-control" required><br>
+                            <input type="text" name="lastname" id="update-studLname"  style="height:5vh" class="input_class form-control" required><br>
+                            <select name="subject" id="update-studSubject" style="height:6vh;text-align:center" class="input_class form-control" required>
                                 <option value="">Subject</option>
                                 <?php
                                 include 'DATABASE/db.php';
@@ -558,7 +501,7 @@ if ($current_page == 'dashboard' || $_SERVER['REQUEST_URI'] == '/') {
                                 }
                                 ?>
                             </select><br>
-                            <select name="class" id="updateClass" style="text-align:center"
+                            <select name="className" id="update-studClass" style="height:5vh"
                                 class="input_class-class form-control" placeholder="Class" required>
                                 <option value="" style="text-align:center">Class</option>
                                 <?php
@@ -574,8 +517,7 @@ if ($current_page == 'dashboard' || $_SERVER['REQUEST_URI'] == '/') {
                                 }
                                 ?>
                             </select> <br>
-                            <input type="password" name="password" class="input_class form-control" id="updatePassword"
-                                required><br>
+                            <input type="password" name="password" id="update-studPassword" style="height:5vh" class="input_class form-control" required><br>
                         </div>
                     </div>
                 </div>
@@ -586,7 +528,7 @@ if ($current_page == 'dashboard' || $_SERVER['REQUEST_URI'] == '/') {
             </div>
         </div>
     </div>
-</form>
+</form> 
 
 
 <!-- CRITERIA-->
@@ -594,71 +536,6 @@ if ($current_page == 'dashboard' || $_SERVER['REQUEST_URI'] == '/') {
 
 
 <!--====================================================================================================->
- faculty_class-->
-<!-- ADD  -->
-<form action="ACTIONS/add_query.php" method="POST">
-    <div class="modal fade" id="addFacClass" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel"><b>Add Class</b></h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="mb-3">
-                        <label for=""><b>Course:</b></label>
-                        <select name="course" id="" class="input_class form-control">
-                            <option value=""></option>
-                            <?php
-                            include 'DATABASE/db.php';
-                            $query = "SELECT * FROM class";
-                            $result = mysqli_query($conn, $query);
-                            if ($result->num_rows > 0) {
-                                while ($row = $result->fetch_assoc()) {
-                                    echo "<option value='" . $row['course'] . "'>" . $row['course'] . "</option>";
-                                }
-                            }
-                            ?>
-                        </select><br>
-                        <label for=""><b>Year Level:</b></label>
-                        <select name="year_level" id="" class="input_class form-control">
-                            <option value=""></option>
-                            <?php
-                            include 'DATABASE/db.php';
-                            $query = "SELECT * FROM class";
-                            $result = mysqli_query($conn, $query);
-                            if ($result->num_rows > 0) {
-                                while ($row = $result->fetch_assoc()) {
-                                    echo "<option value='" . $row['year_level'] . "'>" . $row['year_level'] . "</option>";
-                                }
-                            }
-                            ?>
-                        </select><br>
-                        <label for=""><b>Set:</b></label>
-                        <select name="Set" id="" class="input_class form-control">
-                            <option value=""></option>
-                            <?php
-                            include 'DATABASE/db.php';
-                            $query = "SELECT * FROM class";
-                            $result = mysqli_query($conn, $query);
-                            if ($result->num_rows > 0) {
-                                while ($row = $result->fetch_assoc()) {
-                                    echo "<option value='" . $row['Set'] . "'>" . $row['Set'] . "</option>";
-                                }
-                            }
-                            ?>
-                        </select><br>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" name="add_fac_class" class="btn btn-primary">Submit</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</form>
-
 
 
 <!-- QUESTIONNAIRES _UPDATE MODAL -->

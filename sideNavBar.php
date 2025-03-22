@@ -61,7 +61,7 @@ a {
     align-items: center;
     padding: 0 15px; /* Add horizontal padding */
     cursor: pointer;
-    font-family: cursive;
+    font-family: Georgia, 'Times New Roman', Times, serif;
     font-weight:normal;
 }
 
@@ -127,19 +127,16 @@ i {
                 </li>
                 <li><a href="class.php"><i class="fa-solid fa-chalkboard"></i>&nbsp;&nbsp;Classes</a></li>
                 <li>
-                    <a href="academic_year.php"><i class="fa-solid fa-calendar-check"></i>&nbsp;&nbsp;&nbsp;Academic Year</a>
+                    <a href="academic_year.php"><i class="fa-solid fa-calendar-check"></i>&nbsp;&nbsp;Academic Year</a>
                 </li>
                 <li><a href="faculty.php"><i class="fa-solid fa-person-chalkboard"></i>
-                    &nbsp;Faculty </a></li>
+                    &nbsp; &nbsp;Faculty </a></li>
                 <li>
                     <a href="students.php"> <i class="fa-solid fa-user-graduate"></i> &nbsp;&nbsp;Students</a></li>
                 <li>
                     <a href="questionnaires.php"><i class="fa-solid fa-circle-question"></i>&nbsp;&nbsp;Questionnaires</a></li>
                 <li>
                     <a href="criteria.php"> <i class="fa-solid fa-list-ul"></i>&nbsp;&nbsp;Eval. Criteria </a></li>
-                <li>
-                <a href=""><i class="fa-solid fa-file-contract"></i>&nbsp;&nbsp;Eval Report </a></li><br>
-                <li>
-                    <a href="homepage.php"><i class="fa-solid fa-power-off"></i>&nbsp;&nbsp;Logout</a></li>
+               <br><br><br><br>
             </ul>
         </div><hr>

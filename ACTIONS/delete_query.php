@@ -247,7 +247,7 @@ elseif(isset($_POST['del_stud']))
     $stmt->bind_param("i", $txtno);
     if($stmt->execute())
     {
-        header("location:../faculty_page.php?delete_success=1");
+        header("location:../students.php?delete_success=1");
         exit();
     }
     else {

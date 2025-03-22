@@ -64,6 +64,7 @@
             /* Full height for better click area */
             box-sizing: border-box;
             /* Include padding in width/height */
+            font-family: Georgia, 'Times New Roman', Times, serif;
         }
 
         i {

@@ -127,12 +127,13 @@
         width: 70px;
         text-align: center;
         background:linear-gradient( #F6F1F4, white);
+        font-family: Georgia, 'Times New Roman', Times, serif;
     }
 
     td {
         padding-left: 10px;
         height: 6vh;
-        border: 1px solid #ddd;
+        border: 1px solid #ddd;font-family: Georgia, 'Times New Roman', Times, serif;
     }
 
     .btn_delete,
@@ -180,12 +181,11 @@
                     </tr>
 
                     <?php
-                    include 'DATABASE/db.php';
-                    $sql_conn = "SELECT `no`, `question` FROM `planning_and_lesson_implementation`";
-                    $qry = $conn->query($sql_conn);
-
-                    if ($qry->num_rows > 0) {
-                        while ($row = $qry->fetch_assoc()) {
+                      include_once 'wp-includes/questionnaires.php';
+                    
+                     $res= getQuest1($conn);
+                     foreach($res as $row)
+                     {
                             ?>
                             <tr>
                                 <td style="text-align:center"><?php echo $row['no'] ?></td>
@@ -207,7 +207,6 @@
                             </tr>
                             <?php
                         }
-                    }
                     ?>
                 </table>
             </div> <br><br>
@@ -227,11 +226,11 @@
                     </tr>
 
                     <?php
-                    $sql_conn = "SELECT `no`, `question` FROM `classroom_management`";
-                    $qry = $conn->query($sql_conn);
-
-                    if ($qry->num_rows > 0) {
-                        while ($row = $qry->fetch_assoc()) {
+                      include_once 'wp-includes/questionnaires.php';
+                    
+                     $res= getQstn2($conn);
+                     foreach($res as $row)
+                     {
                             ?>
                             <tr>
                                 <td style="text-align:center"><?php echo $row['no'] ?></td>
@@ -253,7 +252,6 @@
                             </tr>
                             <?php
                         }
-                    }
                     ?>
                 </table>
             </div> <br> <br>
@@ -271,13 +269,12 @@
                         <th style="width:530px;height:8vh">INTERPERSONNAL</th>
                         <th style="width:20px" colspan="2">Action</th>
                     </tr>
-
                     <?php
-                    $sql_conn = "SELECT `no`, `question` FROM `interpersonal_skills`";
-                    $qry = $conn->query($sql_conn);
-
-                    if ($qry->num_rows > 0) {
-                        while ($row = $qry->fetch_assoc()) {
+                      include_once 'wp-includes/questionnaires.php';
+                    
+                     $res= getQuest3($conn);
+                     foreach($res as $row)
+                     {
                             ?>
                             <tr>
                                 <td style="text-align:center"><?php echo $row['no'] ?></td>
@@ -297,7 +294,6 @@
                             </tr>
                             <?php
                         }
-                    }
                     ?>
                 </table>
             </div>

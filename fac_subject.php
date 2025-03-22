@@ -56,6 +56,7 @@
         border-collapse: collapse;
         text-align: center;
         border: 1px solid #ddd;
+        font-family: Georgia, 'Times New Roman', Times, serif;
     }
 
     th {

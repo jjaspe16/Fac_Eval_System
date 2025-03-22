@@ -86,6 +86,7 @@
         border-collapse: collapse;
         text-align: center;
         border: 1px solid #ddd;
+        font-family: Georgia, 'Times New Roman', Times, serif;
     }
 
     th {
@@ -179,16 +180,14 @@
                     <th style="width:10px" colspan="2">Action</th>
                 </tr>
                 <tr>
-                    <?php
-                    include 'DATABASE/db.php';
-                     include 'ACTIONS/modals.php';
+                <?php
+                include 'wp-includes/acad_year.php';
 
-                    $sql = "SELECT `no`, `year`, `semester`, `sys_default`, `eval_status` FROM `academic_year`  ";
-                    $result = $conn->query($sql);
+                $acad_year = getYear($conn);
 
-                    if ($result->num_rows > 0) {
-                        while ($row = $result->fetch_assoc()) {
-                            ?>
+                foreach ($acad_year as $row) {
+                    ?>
+                    <tr>
 
                             <td><?php echo $row['no'] ?> </td>
                             <td><?php echo $row['year'] ?> </td>
@@ -210,7 +209,6 @@
                         </tr>
                         <?php
                         }
-                    }
                     ?>
             </table>
             <input type="hidden" name="acad_delete" id="deleteInput">

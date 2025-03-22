@@ -1,47 +1,69 @@
 <style>
-.h4_nav {
-            padding-top: 5px;
-            padding-left: 10px;
-            font-size: 19px;
-            font-family: cursive;
-            font-weight:normal;
-            background-color: #F6F1F4;
-        }
+    .h4_nav {
+        padding-top: 5px;
+        padding-left: 10px;
+        font-size: 19px;
+        font-family: Georgia, 'Times New Roman', Times, serif;
+        font-weight: normal;
+        background-color: #F6F1F4;
+    }
 
-        /* Responsive styles */
-        @media (max-width: 1200px) {
-            .h4_nav {
-                font-size: 17px;
-                padding-left: 8px;
-            }
+    /* Responsive styles */
+    @media (max-width: 1200px) {
+        .h4_nav {
+            font-size: 17px;
+            padding-left: 8px;
         }
+    }
 
-        @media (max-width: 992px) {
-            .h4_nav {
-                font-size: 15px;
-                padding-left: 6px;
-            }
+    @media (max-width: 992px) {
+        .h4_nav {
+            font-size: 15px;
+            padding-left: 6px;
         }
+    }
 
-        @media (max-width: 768px) {
-            .h4_nav {
-                font-size: 12px;
-                padding-left: 4px;
-            }
+    @media (max-width: 768px) {
+        .h4_nav {
+            font-size: 12px;
+            padding-left: 4px;
         }
+    }
 
-        @media (max-width: 576px) {
-            .h4_nav {
-                font-size: 12px;
-                padding-left: 2px;
-                padding-top: 3px;
-            }
+    @media (max-width: 576px) {
+        .h4_nav {
+            font-size: 12px;
+            padding-left: 2px;
+            padding-top: 3px;
         }
+    }
+    select{
+        width:20px;
+        height:4vh;
+        border-radius: 50px;
+        background-color: none;
+    }
 </style>
 
 
-    <h4 class="h4_nav">&nbsp;&nbsp;Faculty Evaluation System
-       <span style="padding-left:625px"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+<h4 class="h4_nav">&nbsp;&nbsp;Faculty Evaluation System
+    <span style="padding-left:625px">  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+        &nbsp;
         <i class="fa-solid fa-user-tie"></i>&nbsp;Admin
+        <select id="dropdown" onchange="navigateToPage(this)">
+            <option value=""></option>
+            <option value="homepage.php">Logout</option>
+        </select>
+        
+
+
     </span>
 </h4>
+<script>
+    function navigateToPage(select) {
+        const url = select.value;
+        if (url) {
+            window.location.href = url; // Redirect to the selected page
+        }
+    }
+</script>

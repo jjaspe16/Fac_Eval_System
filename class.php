@@ -89,6 +89,7 @@
         border-collapse: collapse;
         text-align: center;
         border: 1px solid #ddd;
+        font-family: Georgia, 'Times New Roman', Times, serif;
     }
 
     th {
@@ -191,23 +192,21 @@
                 <table>
                     <tr>
                         <th>#</th>
-                        <th style="width:300px">Course/Majors</th>
+                        <th style="width:300px">Class</th>
                         <th>Year Level</th>
                         <th>Set</th>
                         <th style="width:40px" colspan="2">Action</th>
                     </tr>
                     <?php
-                         include 'ACTIONS/modals.php';
+                    include 'wp-includes/class.php';
+
                     $search = "";
                     if (isset($_POST['search_class'])) {
                         $search = $_POST['search'];
                     }
 
-                    $sql = "SELECT `no`, `course`, `year_level`, `Set` FROM `class`";
-                    if ($search != "") {
-                        $sql .= " WHERE `course` LIKE '%$search%' OR `year_level` LIKE '%$search%' OR `Set` LIKE '%$search%'";
-                    }
-                    $result = $conn->query($sql);
+                    // Fetch results
+                    $result = searchClass($conn, $search);
 
                     if ($result->num_rows > 0) {
                         while ($row = $result->fetch_assoc()) {

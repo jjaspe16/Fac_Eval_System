@@ -76,22 +76,31 @@ if (isset($_POST['update_subject'])) {
     $txtcode = trim($_POST['code']);
     $txtsubject = trim($_POST['subject']);
 
-    if (empty($txtcode) || empty($txtsubject)) {
+    if (empty($txtcode) || empty($txtsubject) || empty($txtno)) {
         die("All fields are required!");
     }
 
-    $sql = "UPDATE `subjects` SET `code`=?,`subject`=? WHERE `no` =? ";
+    $sql = "UPDATE subjects SET code=?, subject=? WHERE no=? ";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("ssi", $txtcode, $txtsubject, $txtno);
+    
+    if (!$stmt) {
+        die("Error preparing statement: " . $conn->error);
+    }
+
 
     if ($stmt->execute()) {
-        header('location:../subjects.php?success_updated=1');
-    } else
+        header('Location: ../subjects.php?success_updated=1');
+        exit();
+    } else {
         echo "Error: " . $stmt->error;
+    }
 
     $stmt->close();
     $conn->close();
 }
+
+
 //faculty
 if (isset($_POST['update_faculty'])) {
 
@@ -132,53 +141,71 @@ if (isset($_POST['update_faculty'])) {
 
 //fac_students
 if (isset($_POST['update_fac-student'])) {
+    require_once '../DATABASE/db.php'; // Ensure DB connection is included
+
     $txtno = trim($_POST['no']);
     $txtStud_id = trim($_POST['stud_id']);
     $txtfname = trim($_POST['firstname']);
     $txtlname = trim($_POST['lastname']);
     $txtsubject = trim($_POST['subject']);
-    $txtclass = trim($_POST['class']);
-    $txtpassword = hash(algo: "md5", data: $_POST['password'], binary: false);
+    $txtclass = trim($_POST['class']); // Fix class name
+    $txtpassword = md5(trim($_POST['password'])); // Fix hashing
 
     if (empty($txtStud_id) || empty($txtfname) || empty($txtlname) || empty($txtsubject) || empty($txtclass) || empty($txtpassword)) {
         die("All fields are required!");
     }
 
-    $sql = "UPDATE `fac_students` SET `stud_id`=?,`firstname`=?,`lastname`=?,`subject`=?,`class`=?, `password`=? WHERE `no` =?";
+    // Check if the student exists
+    $check_sql = "SELECT no FROM fac_students WHERE no = ?";
+    $check_stmt = $conn->prepare($check_sql);
+    $check_stmt->bind_param("i", $txtno);
+    $check_stmt->execute();
+    $check_stmt->store_result();
+    if ($check_stmt->num_rows == 0) {
+        die("Student not found!");
+    }
+    $check_stmt->close();
+
+    // Update student data
+    $sql = "UPDATE `fac_students` SET `stud_id`=?, `firstname`=?, `lastname`=?, `subject`=?, `class`=?, `password`=? WHERE `no`=?";
     $result = $conn->prepare($sql);
     $result->bind_param("ssssssi", $txtStud_id, $txtfname, $txtlname, $txtsubject, $txtclass, $txtpassword, $txtno);
 
     if ($result->execute()) {
-        header('location:../faculty_page.php?success_updated=1');
-    } else
-        echo "Error: " . $conn->error;
+        header('location:../students.php?success_updated=1');
+        exit();
+    } else {
+        die("Error executing query: " . $conn->error);
+    }
 
     $result->close();
     $conn->close();
 }
 
+
 //majors
 if (isset($_POST['update_department'])) {
-    $txtno = $_POST['no']; // Assuming 'no' is passed as a hidden input
-    $txtdepart = $_POST['department'];
+    $txtno = trim($_POST['no']);
+    $txtdepartment = trim($_POST['department']); // Correct input name
 
-
-    if (empty($txtdepart)) {
+    if (empty($txtdepartment)) {
         die("All fields are required!");
     }
 
-    $sql = "UPDATE `department` SET `department` = ? WHERE `no` =? ";
-    $result = $conn->prepare($sql);
-    $result->bind_param("is", $txtno, $txtdepart);
+    $sql = "UPDATE department SET department=? WHERE no=?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("si", $txtdepartment, $txtno);
 
-    if ($result->execute()) {
-        header('Location: ../majors.php?success_updated=1');
+    if ($stmt->execute()) {
+        header('location:../majors.php?success_updated=1');
     } else {
-        echo "Error: " . $conn->error;
+        echo "Error: " . $stmt->error;
     }
+
     $stmt->close();
     $conn->close();
 }
+
 
 //criteria
 if (isset($_POST['update_criteria'])) {

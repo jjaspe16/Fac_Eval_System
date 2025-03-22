@@ -82,6 +82,7 @@
         border-collapse: collapse;
         text-align: center;
         border: 1px solid #ddd;
+        font-family: Georgia, 'Times New Roman', Times, serif;
     }
 
     th {
@@ -95,6 +96,7 @@
     td {
         width: 200px;
         height: 5vh;
+        
     }
 
     button:hover {
@@ -199,22 +201,17 @@
                     </tr>
                     <tr>
                         <?php
-                        include 'DATABASE/db.php';
+                        include 'wp-includes/faculty.php';
+
                         $search = "";
                         if (isset($_POST['search_fac'])) {
                             $search = $_POST['search'];
                         }
+                        $result=searchFac($conn, $search);
 
-                        $sql = "SELECT no, faculty_id, firstname, lastname, subject, email, f_password
-                                     FROM faculties";
-                        if ($search != "") {
-                            $sql .= " WHERE faculty_id LIKE '%$search%' OR firstname LIKE '%$search%' OR 
-                                        lastname LIKE '%$search%' OR subject LIKE '%$search%' OR email LIKE '%$search%'";
-                        }
-                        $result = $conn->query($sql);
-
-                        if ($result->num_rows > 0) {
-                            while ($row = $result->fetch_assoc()) {
+                        if($result->num_rows>0)
+                        {
+                            while($row=$result->fetch_assoc()){
                                 ?>
 
                             <tr>

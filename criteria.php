@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="assets/bootstrap-icons.css" >
+    <link rel="stylesheet" href="assets/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="assets/bootstrap.min.css">
     <script src="assets/sweetalert2@11"></script>
@@ -26,7 +26,7 @@
         display: flex;
     }
 
-   .nav_box {
+    .nav_box {
         width: 120%;
         height: 90vh;
     }
@@ -37,7 +37,7 @@
         background-color: #F6F1F4;
     }
 
- .h4_nav {
+    .h4_nav {
 
         padding-top: 10px;
 
@@ -86,6 +86,7 @@
         margin-left: 20px;
 
     }
+
     label {
 
         padding-left: 15px;
@@ -105,15 +106,17 @@
         font-weight: bold;
         width: 90px;
         height: 5vh;
-        color:white;
+        color: white;
     }
-    .btn_add:hover{
+
+    .btn_add:hover {
         background-color: #FFBF78;
     }
-    .btn_edit{
+
+    .btn_edit {
         margin-top: 20px;
         border-style: none;
-        width:23px;
+        width: 23px;
     }
 
     .btn_cri,
@@ -122,7 +125,7 @@
         height: 4vh;
         margin-top: 10px;
         border-style: none;
-        background-color:none;
+        background-color: none;
     }
 
     .i_edit {
@@ -151,7 +154,7 @@
         max-height: 390px;
         overflow: auto;
         display: inline-block;
-        background:linear-gradient( #F6F1F4, white);
+        background: linear-gradient(#F6F1F4, white);
         box-shadow: 0 0px 5px black;
     }
 
@@ -160,14 +163,15 @@
         padding-left: 10px;
         top: 0;
         width: 60px;
-        background:linear-gradient( #F6F1F4, white);
+        background: linear-gradient(#F6F1F4, white);
         text-align: center;
+        font-family: Georgia, 'Times New Roman', Times, serif;
     }
 
     td {
         padding-left: 10px;
         text-align: center;
-        
+
     }
 
     th,
@@ -213,7 +217,7 @@
             </div>
 
             <div class="pic_tab">
-                
+
                 <form action="ACTIONS/delete_query.php" id="deleteForm" method="POST">
 
                     <table>
@@ -224,30 +228,25 @@
                         </tr>
 
                         <?php
-                        include 'DATABASE/db.php';
-                        include 'ACTIONS/modals.php';
+                        include_once 'wp-includes/criteria.php';
 
-                        $sql = " SELECT `no`, `criteria` FROM `criterias`";
-                        $result = $conn->query($sql);
+                        $funct = getCriteria($conn);
+                        foreach ($funct as $row) {
+                            ?>
 
-                        if ($result->num_rows > 0) {
-                            while ($row = $result->fetch_assoc()) {
-                                ?>
-
-                                <td><?php echo $row['no'] ?></td>
-                                <td><?php echo $row['criteria'] ?></td>
-                                <td>
-                                    <button class="btn_edit" type="button" onclick="editCriteriamodal(<?php echo $row['no']; ?>,
+                            <td><?php echo $row['no'] ?></td>
+                            <td><?php echo $row['criteria'] ?></td>
+                            <td>
+                                <button class="btn_edit" type="button" onclick="editCriteriamodal(<?php echo $row['no']; ?>,
                                              '<?php echo $row['criteria']; ?>')"><i
-                                            class="i_edit fa-solid fa-pen-to-square"></i>
-                                    </button>
+                                        class="i_edit fa-solid fa-pen-to-square"></i>
+                                </button>
 
-                                    <button type="button" class="btn_cri" onclick="confirmDelete(<?php echo $row['no']; ?>)">
-                                        <i class="i_delete fa-solid fa-trash"></i></button>
-                                </td>
-                                </tr>
-                                <?php
-                            }
+                                <button type="button" class="btn_cri" onclick="confirmDelete(<?php echo $row['no']; ?>)">
+                                    <i class="i_delete fa-solid fa-trash"></i></button>
+                            </td>
+                            </tr>
+                            <?php
                         }
                         ?>
 
@@ -284,12 +283,12 @@
                         </div>
                     </div>
                 </form>
-            
-                
+
+
             </div>
         </div>
-       
-                
+
+
         <script>
             function editCriteriamodal(no, criteria) {
                 $('#updateNo').val(no);

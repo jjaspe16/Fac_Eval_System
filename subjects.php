@@ -4,9 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="assets/bootstrap.min.css">
     <link rel="stylesheet" href="assets/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="assets/bootstrap.min.css">
     <script src="assets/sweetalert2@11"></script>
+    <script src="assets/jquery.min.js"></script>
+    <link rel="stylesheet" href="style.css">
 
     <title>Subjects</title>
     <style>
@@ -50,6 +53,7 @@
             border-collapse: collapse;
             text-align: center;
             border: 1px solid #ddd;
+            font-family: Georgia, 'Times New Roman', Times, serif;
         }
 
         th {
@@ -246,22 +250,15 @@
                 </thead>
                 <tbody>
                     <?php
-                    include 'DATABASE/db.php';
+                    include 'wp-includes/subjects.php';
+
                     $search = "";
                     if (isset($_POST['search_sub'])) {
                         $search = $_POST['search'];
                     }
-                    $sql = "SELECT `no`, `code`, `subject` FROM `subjects`";
-                    if ($search != "") {
-                        $sql .= " WHERE `code` LIKE ? OR `subject` LIKE ?";
-                        $stmt = $conn->prepare($sql);
-                        $searchTerm = "%$search%";
-                        $stmt->bind_param("ss", $searchTerm, $searchTerm);
-                        $stmt->execute();
-                        $result = $stmt->get_result();
-                    } else {
-                        $result = $conn->query($sql);
-                    }
+
+                    // Fetch results
+                    $result = searchSubjects($conn, $search);
 
                     if ($result->num_rows > 0) {
                         while ($row = $result->fetch_assoc()) {
@@ -272,30 +269,32 @@
                                 <td><?php echo htmlspecialchars($row['subject'], ENT_QUOTES, 'UTF-8'); ?></td>
                                 <td>
                                     <button class="btn_edit" type="button" onclick="editSubjectmodal(
-                                                  <?php echo $row['no']; ?>,
-                                                 '<?php echo addslashes($row['code']); ?>',
-                                                 '<?php echo addslashes($row['subject']); ?>')">
+                                        '<?php echo htmlspecialchars($row['no'], ENT_QUOTES, 'UTF-8'); ?>',
+                                        '<?php echo htmlspecialchars($row['code'], ENT_QUOTES, 'UTF-8'); ?>',
+                                        '<?php echo htmlspecialchars($row['subject'], ENT_QUOTES, 'UTF-8'); ?>'
+                                    )">
                                         <i class="i_edit fa-solid fa-pen-to-square"></i>
                                     </button>
-                                    <button type="button" class="btn_delete" onclick="confirmDelete(<?php echo $row['no']; ?>)">
+
+                                    <button type="button" class="btn_delete"
+                                        onclick="confirmDelete('<?php echo $row['no']; ?>')">
                                         <i class="i_delete fa-solid fa-trash"></i>
                                     </button>
                                 </td>
                             </tr>
                             <?php
                         }
+                    } else {
+                        echo "<tr><td colspan='4' style='text-align:center'>No results found</td></tr>";
                     }
                     ?>
                 </tbody>
+
             </table>
             <input type="hidden" name="sub_delete" id="deleteInput">
         </form>
 
     </div>
-
-    <!-- JS and jQuery -->
-    <script src="assets/bootstrap.bundle.min.js"></script>
-    <script src="assets/query.min.js"></script>
 
     <script>
         function confirmDelete(no) {
@@ -315,15 +314,17 @@
             })
         }
 
-        function editSubjectmodal(no, code, subject) {
-            $('#updateNo').val(no);
-            $('#updateCode').val(code);
-            $('#updateSubject').val(subject);
-            $('#editSubject').modal('show');
-        }
-    </script>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        function editSubjectmodal(no, code, subject) {
+            console.log("Updating Subject:", no, code, subject); // Debugging line
+            document.getElementById("updateNo").value = no;
+            document.getElementById("updateCode").value = code;
+            document.getElementById("updateSubject").value = subject;
+            var modal = new bootstrap.Modal(document.getElementById('editSubject'));
+            modal.show();
+        }
+
+    </script>
 
 </body>
 

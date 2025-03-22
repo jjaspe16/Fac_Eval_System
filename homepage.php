@@ -48,10 +48,11 @@
         background-repeat: no-repeat;
     }
 
-    h2 {
+    h4 {
         text-align: center;
         font-weight: bold;
         color: black;
+        font-family: Georgia, 'Times New Roman', Times, serif;
     }
 
     .box2 {
@@ -60,9 +61,9 @@
         margin-left: 430px;
         padding-left: 40px;
         padding-top: 10px;
-        background: linear-gradient(#FFBF78, #FEFAE0);
+        background:linear-gradient( #F6F1F4, white);
         border-radius: 15px;
-        box-shadow: 0 2px 5px black;
+        box-shadow: 0 5px 15px black;
     }
 
     .div_input {
@@ -145,7 +146,7 @@
                 
             </div>
 
-            <h2>Faculty Evaluation System</h2>
+            <h4>Faculty Evaluation System</h4>
             <div class="box2">
 
                 <form  id="loginForm">
@@ -163,6 +164,7 @@
                     <div class="div_input">
                         <select class="select_clss" name="usertype" id="usertype" required>
                             <option value=""></option>
+                            <option value="Admin">Admin</option>
                             <option value="Student">Student</option>
                             <option value="Faculty">Faculty</option>
                             

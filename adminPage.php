@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-<!--     <link rel="stylesheet" href="assets/bootstrap-icons.css" >
+    <!--     <link rel="stylesheet" href="assets/bootstrap-icons.css" >
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="assets/bootstrap.min.css">
     <script src="assets/sweetalert2@11"></script>
@@ -35,16 +35,15 @@
 
 
     .div_nav {
-        width:120%;
-        height: 6vh; 
+        width: 120%;
+        height: 6vh;
         background-color: #F6F1F4;
-
     }
 
     .boxes {
         width: 100%;
         height: 95vh;
-        background-color: #F8F4FF;
+        background-color: #F6F1F4;
     }
 
     .row1 {
@@ -116,177 +115,154 @@
                     </div>
                     <div class="icon_div">
                         <i style="font-size: 68px; margin-left: 100px;" class="fa-solid fa-building-columns"></i>
-                    </div>
-                    <h4>
-                        <?php
-                        include 'DATABASE/db.php';
+                    </div> <br>
+                   <h4>
+                   <?php
+                        include 'wp-includes/majors.php';
 
-                        $sql = "SELECT COUNT(*) as no FROM department";
-                        $result = $conn->query($sql);
+                        $tableName = "department";
+                        $rowCount = getRowCount_depart($tableName, $conn);
 
-                        if ($result) {
-                            // Fetch the result as an associative array
-                            $row = $result->fetch_assoc();
-
-                            echo $row['no'];
-                        }
+                        echo " " . $rowCount;
                         ?>
-                    </h4>
-                </div>
+                   </h4>
+                    
+                </div><!--box1-->
+
                 <div style="background-color: rgb(242, 102, 102);" class="box">
                     <div class="h5_div">
-                    <h5>Subjects</h5>
+                        <h5>Subjects</h5>
                     </div>
                     <div class="icon_div">
                         <i style="font-size: 68px; margin-left: 100px;" class="bi bi-journal-album"></i>
-                    </div>
+                    </div> 
                     <h4>
                         <?php
-                        include 'DATABASE/db.php';
+                        include 'wp-includes/subjects.php';
 
-                        $sql = "SELECT COUNT(*) as no FROM subjects";
-                        $result = $conn->query($sql);
+                        $tableName = "subjects";
+                        $rowCount = getRowCount_subj($tableName, $conn);
 
-                        if ($result) {
-                            // Fetch the result as an associative array
-                            $row = $result->fetch_assoc();
-
-                            echo $row['no'];
-                        }
+                        echo " " . $rowCount;
                         ?>
                     </h4>
-                </div>
+                </div> <!--box2-->
+
                 <div style="background-color: rgb(239, 239, 124);" class="box">
                     <div class="h5_div">
-                    <h5>Classes</h5>
+                        <h5>Classes</h5>
                     </div>
                     <div class="icon_div">
                         <i style="font-size: 68px; margin-left: 100px;" class="fa-solid fa-chalkboard"></i>
                     </div>
                     <h4>
-                        <?php
-                        include 'DATABASE/db.php';
+                    <?php
+                        include 'wp-includes/class.php';
 
-                        $sql = "SELECT COUNT(*) as no FROM class";
-                        $result = $conn->query($sql);
+                        $tableName = "class";
+                        $rowCount = getRowCount_class($tableName, $conn);
 
-                        if ($result) {
-                            // Fetch the result as an associative array
-                            $row = $result->fetch_assoc();
-
-                            echo $row['no'];
-                        }
+                        echo " " . $rowCount;
                         ?>
                     </h4>
-                </div>
+                </div><!--box3-->
+
                 <div style="background-color: rgb(247, 24, 210)" class="box">
                     <div class="h5_div">
-                    <h5>Academic Year</h5>
+                        <h5>Academic Year</h5>
                     </div>
                     <div class="icon_div">
                         <i style="font-size: 68px; margin-left: 100px;" class="fa-solid fa-calendar-check"></i>
                     </div>
                     <h4>
-                        <?php
-                        include 'DATABASE/db.php';
+                    <?php
+                        include 'wp-includes/acad_year.php';
 
-                        $sql = "SELECT COUNT(*) as no FROM academic_year";
-                        $result = $conn->query($sql);
+                        $tableName = "academic_year";
+                        $rowCount = getRowCount_acadyr($tableName, $conn);
 
-                        if ($result) {
-                            // Fetch the result as an associative array
-                            $row = $result->fetch_assoc();
-
-                            echo $row['no'];
-                        }
+                        echo " " . $rowCount;
                         ?>
                     </h4>
-                </div>
-            </div>
-            <div class="row2">
+                </div> <!--box4-->
+
+                <div class="row2">
                 <div style="background-color: rgb(252, 187, 131);" class="box">
                     <div class="h5_div">
-                    <h5>Faculties</h5>
+                        <h5>Faculties</h5>
                     </div>
                     <div class="icon_div">
                         <i style="font-size: 68px; margin-left: 100px;" class="fa-solid fa-person-chalkboard"></i>
                     </div>
                     <h4>
-                        <?php
-                        include 'DATABASE/db.php';
+                    <?php
+                        include 'wp-includes/faculty.php';
 
-                        $sql = "SELECT COUNT(*) as no FROM faculties";
-                        $result = $conn->query($sql);
+                        $tableName = "faculties";
+                        $rowCount = getRowCount_fac($tableName, $conn);
 
-                        if ($result) {
-                            // Fetch the result as an associative array
-                            $row = $result->fetch_assoc();
-
-                            echo $row['no'];
-                        }
+                        echo " " . $rowCount;
                         ?>
                     </h4>
                 </div>
+
                 <div style="background-color: lightgreen;" class="box">
                     <div class="h3_div">
-                    <h5>Students</h5>
+                        <h5>Students</h5>
                     </div>
                     <div class="icon_div">
                         <i style="font-size: 68px; margin-left: 100px;" class="fa-solid fa-user-graduate"></i>
                     </div>
                     <h4>
-                        <?php
-                        include 'DATABASE/db.php';
+                    <?php
+                        include 'wp-includes/students.php';
 
-                        $sql = "SELECT COUNT(*) as no FROM fac_students";
-                        $result = $conn->query($sql);
+                        $tableName = "fac_students";
+                        $rowCount = getRowCount_stud($tableName, $conn);
 
-                        if ($result) {
-                            // Fetch the result as an associative array
-                            $row = $result->fetch_assoc();
-
-                            echo $row['no'];
-                        }
+                        echo " " . $rowCount;
                         ?>
                     </h4>
                 </div>
+
                 <div style="background-color: rgb(22, 220, 220);" class="box">
                     <div class="h5_div">
-                    <h5>Evaluation Criteria</h5>
+                        <h5>Evaluation Criteria</h5>
                     </div>
                     <div class="icon_div">
                         <i style="font-size: 68px; margin-left: 100px;" class="bi bi-list-check"></i>
                     </div>
-                    <h4> <?php
-                    include 'DATABASE/db.php';
+                    <h4> 
+                    <?php
+                        include 'wp-includes/criteria.php';
 
-                    $sql = "SELECT COUNT(*) as no FROM criterias";
-                    $result = $conn->query($sql);
+                        $tableName = "criterias";
+                        $rowCount = getRowCount_criteria($tableName, $conn);
 
-                    if ($result) {
-                        // Fetch the result as an associative array
-                        $row = $result->fetch_assoc();
-
-                        echo $row['no'];
-                    }
-                    ?></h4>
+                        echo " " . $rowCount;
+                        ?>
+                    </h4>
                 </div>
+
                 <div style="background-color: orange;" class="box">
                     <div class="h5_div">
-                    <h5>Evaluation Reports</h5>
+                        <h5>Evaluation Reports</h5>
                     </div>
                     <div class="icon_div">
                         <i style="font-size: 68px; margin-left: 100px;" class="fa-solid fa-file-contract"></i>
                     </div>
-                <h5></h5>
-                        </h1>
+                    <h5></h5>
+                    </h1>
                 </div>
 
-            </div><!--boxes-->
-        </div> <!--nav-->
+            </div><!--row2-->
+            </div> <!--row1-->
 
+
+
+        </div> <!--boxes-->
+</div><!--div nav-->
 
 
 </body>
-
 </html>

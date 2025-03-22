@@ -48,17 +48,18 @@ if (isset($_POST['login'])) {
 
                 if ($txtusertype == 'Faculty') {
 
-                    // header('location:fac_navigation.php');
                     header('location:../faculty_page.php');
-
 
                     exit();
                 }
-
                 if ($txtusertype == 'Student') {
                     header('location:student_page.php');
                 }
+                if ($txtusertype == 'Admin' && $txtid == '2020-001' && $txtpassword == 'admin123') {
+                    $txtid = $_POST['user_id'];
+                    $txtpassword = $_POST['u_password'];
 
+                   
             }
         }
 
@@ -71,7 +72,7 @@ if (isset($_POST['login'])) {
             if ($txtusertype === 'Faculty') {
                 header('Location: faculty_page.php');
                 exit();
-            }        */ else {
+            }        else { */
             //echo"Unregistered  User Id and Password !";
             header('location:homepage.php?error=1');
         }
@@ -92,22 +93,21 @@ if (isset($_POST['add_faculty'])) {
     $txtlastname = trim($_POST['lastname']);
     $txtsubject = trim($_POST['subject']);
     $txtemail = trim($_POST['email']);
-    $txtfpassword = $_POST['f_password'];
-
+    $txtfpassword = hash(algo: "md5", data: $_POST['f_password'], binary: false);
     // Validate email format
     if (!filter_var($txtemail, FILTER_VALIDATE_EMAIL)) {
         die("Invalid email format!");
     }
 
     // Hash password securely
-    $hashed_password = password_hash($txtfpassword, PASSWORD_DEFAULT);
+   // $hashed_password = password_hash($txtfpassword, PASSWORD_DEFAULT);
 
     // Use prepared statement to prevent SQL Injection
     $qry = "INSERT INTO faculties (faculty_id, firstname, lastname, subject, email, f_password) 
             VALUES (?, ?, ?, ?, ?, ?)";
 
     $stmt = $conn->prepare($qry);
-    $stmt->bind_param("ssssss", $txtid, $txtfirstname, $txtlastname, $txtsubject, $txtemail, $hashed_password);
+    $stmt->bind_param("ssssss", $txtid, $txtfirstname, $txtlastname, $txtsubject, $txtemail, $txtfpassword);
 
     if ($stmt->execute()) {
         header('location:../faculty.php?success=1');
@@ -127,18 +127,18 @@ if (isset($_POST['add_student'])) {
     $txtfname = trim($_POST['firstname']);
     $txtlname = trim($_POST['lastname']);
     $txtsubject = trim($_POST['subject']);
-    $txtclass = trim($_POST['class']);
-    $txtpassword = $_POST['password'];
+    $txtclass = trim($_POST['className']);
+    $txtpassword = hash(algo: "md5", data: $_POST['password'], binary: false);
 
-    $passHash = password_hash($txtpassword, PASSWORD_DEFAULT);
+   // $passHash = password_hash($txtpassword, PASSWORD_DEFAULT);
 
-    $qry = "INSERT INTO `fac_students`( `stud_id`, `firstname`, `lastname`, `subject`, `class`,`password`) 
+    $qry = "INSERT INTO `fac_students`( `stud_id`, `firstname`, `lastname`, `subject`, `className`,`password`) 
             VALUES (?,?,?,?,?,?)";
     $connect = $conn->prepare($qry);
-    $connect->bind_param("ssssss", $txtStud_id, $txtfname, $txtlname, $txtsubject, $txtclass, $passHash);
+    $connect->bind_param("ssssss", $txtStud_id, $txtfname, $txtlname, $txtsubject, $txtclass, $txtpassword);
 
     if ($connect->execute()) {
-        header('location:../faculty_page.php?success=1');
+        header('location:../students.php?success=1');
     } else {
         echo "Error: " . $connect->error;
     }
