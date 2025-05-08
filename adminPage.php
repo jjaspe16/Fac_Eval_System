@@ -33,7 +33,19 @@
         display: flex;
     }
 
-
+@media(max-width:768px)
+{
+    .div_nav,
+    .boxes,
+    .row1,
+    .row2,
+    .box,
+    .h5_div
+    {  
+        justify-content: center;
+        align-items: center;
+    }
+}
     .div_nav {
         width: 120%;
         height: 6vh;
@@ -42,14 +54,15 @@
 
     .boxes {
         width: 100%;
-        height: 95vh;
-        background-color: #F6F1F4;
+        height: auto;
+       
+       flex-wrap: wrap;
     }
 
     .row1 {
         width: 100%;
         height: 30vh;
-        display: flex;
+        display:flex;
     }
 
     .row2 {
@@ -65,17 +78,25 @@
         margin-left: 10px;
         box-shadow: 0 2px 5px black;
         border-radius: 5px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        /* pushes content top to bottom */
+        align-items: center;
+        padding: 10px;
+        position: relative;
     }
+    
 
     .box:hover {
         transition: all .6s ease-in-out;
         transform: scale(1.1);
     }
 
+
     h4 {
-        padding-top: 15px;
-        padding-left: 15px;
         font-weight: bold;
+        margin: 0;
         text-align: center;
     }
 
@@ -86,12 +107,52 @@
 
     .icon_div {
         height: 10vh;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
+
+    .icon_div i {
+        font-size: 5vh;
+    }
+
 
     h3 {
         text-align: left;
         font-weight: normal;
         margin-top: 15px;
+    }
+    .box1 {
+        background-color: rgb(84, 169, 239);
+    }
+    .box2 {
+        background-color: rgb(242, 102, 102);
+        
+    }
+
+    .box3 {
+        background-color: rgb(239, 239, 124);
+    }
+
+    .box4 {
+        background-color: rgb(247, 24, 210);
+    }
+
+    .box5 {
+        background-color: rgb(252, 187, 131);
+    }
+
+    .box6 {
+        background-color: lightgreen;
+    }
+
+    .box7 {
+        background-color: rgb(22, 220, 220);
+    }
+
+    .box8 {
+        background-color: orange;
     }
 </style>
 
@@ -102,167 +163,132 @@
     ?>
 
     <div class="div_nav">
-        <?php
-        include 'topNav.html';
-        ?>
+        <?php include 'topNav.html'; ?>
 
         <div class="boxes">
 
+            <!-- Row 1 -->
             <div class="row1">
-                <div class="box">
+                <!-- Majors -->
+                <div class="box box1">
                     <div class="h5_div">
                         <h5>Majors</h5>
                     </div>
-                    <div class="icon_div">
-                        <i style="font-size: 68px; margin-left: 100px;" class="fa-solid fa-building-columns"></i>
-                    </div> <br>
-                   <h4>
-                   <?php
-                        include 'wp-includes/majors.php';
 
-                        $tableName = "department";
-                        $rowCount = getRowCount_depart($tableName, $conn);
+                    <div class="icon_div"><i class="fa-solid fa-building-columns"> </i> 
+                   
+                    </div>
+                </div>
 
-                        echo " " . $rowCount;
-                        ?>
-                   </h4>
-                    
-                </div><!--box1-->
-
-                <div style="background-color: rgb(242, 102, 102);" class="box">
+                <!-- Subjects -->
+                <div class="box box2">
                     <div class="h5_div">
                         <h5>Subjects</h5>
                     </div>
-                    <div class="icon_div">
-                        <i style="font-size: 68px; margin-left: 100px;" class="bi bi-journal-album"></i>
-                    </div> 
+                  
                     <h4>
                         <?php
                         include 'wp-includes/subjects.php';
-
-                        $tableName = "subjects";
-                        $rowCount = getRowCount_subj($tableName, $conn);
-
-                        echo " " . $rowCount;
+                        echo getRowCount_subj("subjects", $conn);
                         ?>
                     </h4>
-                </div> <!--box2-->
+                </div>
 
-                <div style="background-color: rgb(239, 239, 124);" class="box">
+                <!-- Classes -->
+                <div class="box box3">
                     <div class="h5_div">
                         <h5>Classes</h5>
                     </div>
-                    <div class="icon_div">
-                        <i style="font-size: 68px; margin-left: 100px;" class="fa-solid fa-chalkboard"></i>
-                    </div>
+                    <div class="icon_div"><i class="fa-solid fa-chalkboard"></i></div>
                     <h4>
-                    <?php
+                        <?php
                         include 'wp-includes/class.php';
-
-                        $tableName = "class";
-                        $rowCount = getRowCount_class($tableName, $conn);
-
-                        echo " " . $rowCount;
+                        echo getRowCount_class("class", $conn);
                         ?>
                     </h4>
-                </div><!--box3-->
+                </div>
 
-                <div style="background-color: rgb(247, 24, 210)" class="box">
+                <!-- Classes -->
+                <div class="box box3">
                     <div class="h5_div">
-                        <h5>Academic Year</h5>
+                        <h5>Acad Year</h5>
                     </div>
-                    <div class="icon_div">
-                        <i style="font-size: 68px; margin-left: 100px;" class="fa-solid fa-calendar-check"></i>
-                    </div>
+                    <div class="icon_div"><i class="fa-solid fa-chalkboard"></i>
                     <h4>
-                    <?php
+                        <?php
                         include 'wp-includes/acad_year.php';
-
-                        $tableName = "academic_year";
-                        $rowCount = getRowCount_acadyr($tableName, $conn);
-
-                        echo " " . $rowCount;
+                        echo getRowCount_acadyr("academic_year", $conn);
                         ?>
                     </h4>
-                </div> <!--box4-->
+                    </div>
+                </div>
 
+
+                <!-- Row 2 -->
                 <div class="row2">
-                <div style="background-color: rgb(252, 187, 131);" class="box">
-                    <div class="h5_div">
-                        <h5>Faculties</h5>
+                    <!-- Faculties -->
+                    <div class="box box5">
+                        <div class="h5_div">
+                            <h5>Faculties</h5>
+                        </div>
+                        <div class="icon_div"><i class="fa-solid fa-person-chalkboard"></i></div>
+                        <h4>
+                            <?php
+                            include 'wp-includes/faculty.php';
+                            echo getRowCount_fac("faculties", $conn);
+                            ?>
+                        </h4>
                     </div>
-                    <div class="icon_div">
-                        <i style="font-size: 68px; margin-left: 100px;" class="fa-solid fa-person-chalkboard"></i>
+
+                    <!-- Students -->
+                    <div class="box box6">
+                        <div class="h5_div">
+                            <h5>Students</h5>
+                        </div>
+                        <div class="icon_div"><i class="fa-solid fa-user-graduate"></i></div>
+                        <h4>
+                            <?php
+                            include 'wp-includes/students.php';
+                            echo getRowCount_stud("fac_students", $conn);
+                            ?>
+                        </h4>
                     </div>
-                    <h4>
-                    <?php
-                        include 'wp-includes/faculty.php';
 
-                        $tableName = "faculties";
-                        $rowCount = getRowCount_fac($tableName, $conn);
+                    <!-- Evaluation Criteria -->
+                    <div class="box box7">
+                        <div class="h5_div">
+                            <h5>Evaluation Criteria</h5>
+                        </div>
+                        <div class="icon_div"><i class="bi bi-list-check"></i></div>
+                        <h4>
+                            <?php
+                            include 'wp-includes/criteria.php';
+                            echo getRowCount_criteria("criterias", $conn);
+                            ?>
+                        </h4>
+                    </div>
 
-                        echo " " . $rowCount;
-                        ?>
-                    </h4>
+                    <!-- Reports -->
+                    <div class="box box8">
+                        <div class="h5_div">
+                            <h5>Evaluation Reports</h5>
+                        </div>
+                        <div class="icon_div"><i class="fa-solid fa-file-contract"></i></div>
+                        <h4>--</h4>
+                    </div>
                 </div>
 
-                <div style="background-color: lightgreen;" class="box">
-                    <div class="h3_div">
-                        <h5>Students</h5>
-                    </div>
-                    <div class="icon_div">
-                        <i style="font-size: 68px; margin-left: 100px;" class="fa-solid fa-user-graduate"></i>
-                    </div>
-                    <h4>
-                    <?php
-                        include 'wp-includes/students.php';
-
-                        $tableName = "fac_students";
-                        $rowCount = getRowCount_stud($tableName, $conn);
-
-                        echo " " . $rowCount;
-                        ?>
-                    </h4>
-                </div>
-
-                <div style="background-color: rgb(22, 220, 220);" class="box">
-                    <div class="h5_div">
-                        <h5>Evaluation Criteria</h5>
-                    </div>
-                    <div class="icon_div">
-                        <i style="font-size: 68px; margin-left: 100px;" class="bi bi-list-check"></i>
-                    </div>
-                    <h4> 
-                    <?php
-                        include 'wp-includes/criteria.php';
-
-                        $tableName = "criterias";
-                        $rowCount = getRowCount_criteria($tableName, $conn);
-
-                        echo " " . $rowCount;
-                        ?>
-                    </h4>
-                </div>
-
-                <div style="background-color: orange;" class="box">
-                    <div class="h5_div">
-                        <h5>Evaluation Reports</h5>
-                    </div>
-                    <div class="icon_div">
-                        <i style="font-size: 68px; margin-left: 100px;" class="fa-solid fa-file-contract"></i>
-                    </div>
-                    <h5></h5>
-                    </h1>
-                </div>
-
-            </div><!--row2-->
-            </div> <!--row1-->
 
 
 
-        </div> <!--boxes-->
-</div><!--div nav-->
+
+
+
+            </div>
+        </div>
+
 
 
 </body>
+
 </html>

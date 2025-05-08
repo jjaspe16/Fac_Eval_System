@@ -81,9 +81,7 @@ i {
 
 /* For medium screens (tablets in landscape mode) */
 @media (min-width: 768px) and (max-width: 1199px) {
-    .side_con {
-        width: 250px;
-    }
+
 }
 
 /* For small screens (tablets and large phones) */

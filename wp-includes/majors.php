@@ -6,16 +6,17 @@ include 'ACTIONS/modals.php';
 //COUNT DATA 
 function getRowCount_depart($tableName, $conn)
 {
-    $sql = "SELECT COUNT(*) as total FROM $tableName";
+
+    $sql = "SELECT COUNT(*) as total FROM `$tableName`";
     $result = $conn->query($sql);
 
-    if ($result) {
-        $row = $result->fetch_assoc();
+    if ($result && $row = $result->fetch_assoc()) {
         return $row['total'];
     } else {
-        return "Error: " . $conn->error; // Return error message if query fails
+        return "Error: " . $conn->error;
     }
 }
+
 
 
 //RETRIEVE
